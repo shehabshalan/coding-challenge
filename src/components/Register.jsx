@@ -1,6 +1,5 @@
-import * as React from "react";
+import React, { useState } from "react";
 import Avatar from "@mui/material/Avatar";
-import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
 import Link from "@mui/material/Link";
@@ -10,8 +9,10 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { useUserAuth } from "../context/UserAuthContext";
 import { useHistory } from "react-router-dom";
+import LoadingButton from "@mui/lab/LoadingButton";
 
-export default function Register() {
+function Register() {
+  const [loading, setLoading] = useState(false);
   const { signUp } = useUserAuth();
   const history = useHistory();
 
@@ -19,10 +20,12 @@ export default function Register() {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     try {
+      setLoading(true);
       await signUp(data.get("email"), data.get("password"));
       history.push("/");
     } catch (err) {
-      console.log(err.message);
+      setLoading(false);
+      alert(err.message);
     }
     // register(data.get("email"), data.get("password"));
   };
@@ -65,14 +68,15 @@ export default function Register() {
             id="password"
             autoComplete="current-password"
           />
-          <Button
+          <LoadingButton
             type="submit"
             fullWidth
+            loading={loading}
             variant="contained"
             sx={{ mt: 3, mb: 2 }}
           >
             Register
-          </Button>
+          </LoadingButton>
           <Link href="/login" variant="body2" style={{ textAlign: "center" }}>
             {"Already have an account? Login"}
           </Link>
@@ -81,3 +85,5 @@ export default function Register() {
     </Container>
   );
 }
+
+export default Register;
