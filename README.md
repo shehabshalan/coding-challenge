@@ -1,6 +1,6 @@
 # Video Service App
 A video service platform.
-# Tech Stack:
+## Tech Stack:
 - React.js
+- Firebase (Authentication + data persistence)
 - Material UI
-- Firebase
