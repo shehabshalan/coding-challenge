@@ -138,14 +138,14 @@ export const DataProvider = ({ children }) => {
       comments: [],
     };
     console.log(newVideo);
-    // try {
-    //   await addDoc(videosCollectionRef, newVideo);
-    //   alert("uploaded");
-    //   setVideos((prev) => [...prev, newVideo]);
-    //   history.push("/");
-    // } catch (err) {
-    //   console.log(err);
-    // }
+    try {
+      await addDoc(videosCollectionRef, newVideo);
+      alert("uploaded");
+      setVideos((prev) => [...prev, newVideo]);
+      history.push("/");
+    } catch (err) {
+      console.log(err);
+    }
   };
   return (
     <DataContext.Provider
