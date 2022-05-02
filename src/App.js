@@ -6,7 +6,6 @@ import VideoPage from "./components/VideoPage";
 import NotFound from "./components/NotFound";
 import Login from "./components/Login";
 import Register from "./components/Register";
-import VideoUpload from "./components/VideoUpload";
 import ProtectedRoutes from "./ProtectedRoutes";
 
 function App() {
@@ -17,7 +16,6 @@ function App() {
         <Route path="/register" component={Register} />
         <ProtectedRoutes exact path="/" component={VideoList} />
         <ProtectedRoutes path="/video/:id" component={VideoPage} />
-        <ProtectedRoutes path="/upload" component={VideoUpload} />
         <Route path="*" component={NotFound} />
       </Switch>
     </div>
