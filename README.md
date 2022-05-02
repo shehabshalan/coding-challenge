@@ -1,4 +1,4 @@
-# UI Video Browser
+# Browse Videos
 A simple video browser with ability to upload videos.
 ## Tech Stack:
 - React.js
