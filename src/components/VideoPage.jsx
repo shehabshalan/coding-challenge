@@ -29,8 +29,7 @@ function VideoPage() {
   useEffect(() => {
     const videoById = videos.find((video) => video.id === id);
     setVideo(videoById);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [id, videos]);
+  }, [id, video, videos]);
   return (
     <div>
       {video && (
@@ -80,7 +79,7 @@ function VideoPage() {
 
       {!video && (
         <Typography variant="h6" align="center">
-          No video found
+          Loading ...
         </Typography>
       )}
     </div>
