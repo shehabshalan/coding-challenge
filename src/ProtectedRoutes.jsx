@@ -9,8 +9,8 @@ function ProtectedRoutes({ component: Component, ...rest }) {
   return (
     <Route
       {...rest}
-      render={() => {
-        if (!user) {
+      render={(props) => {
+        if (user === null) {
           return <Redirect to="/login" />;
         }
         return (
