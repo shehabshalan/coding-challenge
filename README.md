@@ -6,6 +6,6 @@ A simple UI to browse videos with authentication.
 - Material UI
 
 content is taken from:
-https://www.youtube.com/c/Fireship
-https://www.youtube.com/c/pillsbury
-https://www.youtube.com/c/PmDInteractive
+- https://www.youtube.com/c/Fireship
+- https://www.youtube.com/c/pillsbury
+- https://www.youtube.com/c/PmDInteractive
