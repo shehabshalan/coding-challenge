@@ -3,33 +3,23 @@ import { useParams } from "react-router-dom";
 import VideoPlayer from "./VideoPlayer";
 import CommentsFeed from "./CommentsFeed";
 import { Container, Paper, Typography, Grid } from "@mui/material";
-// import Switch from "@mui/material/Switch";
+import Switch from "@mui/material/Switch";
 import AddComments from "./AddComments";
 import VideoCard from "./VideoCard";
 import DataContext from "../context/DataContext";
-
+import getRelatedVideos from "../helper/getRelatedVideos";
 function VideoPage() {
   const { id } = useParams();
   const { videos } = useContext(DataContext);
   const [video, setVideo] = useState({});
-  const getRelatedVideos = (allVideos) => {
-    const relatedVideos = allVideos.filter((v) => {
-      return v.category === video.category;
-    });
-    if (relatedVideos.length > 3) {
-      return relatedVideos.slice(0, 3);
-    }
-    if (relatedVideos.length === 1) {
-      return [];
-    }
-
-    return relatedVideos;
+  const [toggleComments, setToggleComments] = React.useState(true);
+  const handleChange = (event) => {
+    setToggleComments(event.target.checked);
   };
-
   useEffect(() => {
     const videoById = videos.find((video) => video.id === id);
     setVideo(videoById);
-  }, [id, video, videos]);
+  }, [id, videos]);
   return (
     <div>
       {video && (
@@ -41,19 +31,29 @@ function VideoPage() {
             <VideoPlayer videoPath={video.path} />
             <Container maxWidth="lg">
               <Typography variant="h6" sx={{ mt: 4 }}>
+                Toggle comments
+              </Typography>
+
+              <Switch
+                checked={toggleComments}
+                onChange={handleChange}
+                inputProps={{ "aria-label": "controlled" }}
+              />
+
+              <Typography variant="h6" sx={{ mt: 4 }}>
                 Comments
               </Typography>
-              {video.commentsAllowed ? (
+              {toggleComments ? (
                 <Paper>
                   {video.comments?.map((comment) => (
                     <CommentsFeed comment={comment} />
                   ))}
                 </Paper>
               ) : (
-                <i>Comments are off</i>
+                <h6>Comments are off</h6>
               )}
 
-              {video.commentsAllowed ? (
+              {toggleComments ? (
                 <AddComments video={video} setVideo={setVideo} />
               ) : null}
 
@@ -68,7 +68,7 @@ function VideoPage() {
                 spacing={2}
                 columns={12}
               >
-                {getRelatedVideos(videos).map((video) => (
+                {getRelatedVideos(videos, video).map((video) => (
                   <VideoCard video={video} />
                 ))}
               </Grid>
