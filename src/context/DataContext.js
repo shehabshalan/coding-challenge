@@ -1,20 +1,22 @@
 /* eslint-disable */
 import { createContext, useEffect, useState } from "react";
-import { collection, getDocs } from "firebase/firestore";
+import { collection, getDocs, onSnapshot } from "firebase/firestore";
 import { db } from "../firebase-config";
 
 const DataContext = createContext({});
 export const DataProvider = ({ children }) => {
   const [videos, setVideos] = useState([]);
   const videosCollectionRef = collection(db, "videos");
-  const getVideos = async () => {
-    const data = await getDocs(videosCollectionRef);
-    const allVideos = data.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
-    setVideos(allVideos.reverse());
-  };
 
   useEffect(() => {
-    getVideos();
+    const unsub = onSnapshot(videosCollectionRef, (snapshot) => {
+      let vid = [];
+      snapshot.forEach((doc) => {
+        vid.push({ ...doc.data(), id: doc.id });
+      });
+      setVideos(vid);
+    });
+    return () => unsub();
   }, []);
 
   return (

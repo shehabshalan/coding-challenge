@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import Avatar from "@mui/material/Avatar";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
@@ -8,25 +8,14 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { useUserAuth } from "../context/UserAuthContext";
-import { useHistory } from "react-router-dom";
 import LoadingButton from "@mui/lab/LoadingButton";
 
 function Login() {
-  const [loading, setLoading] = useState(false);
-
-  const { logIn } = useUserAuth();
-  const history = useHistory();
-  const handleSubmit = async (event) => {
+  const { logIn, loading } = useUserAuth();
+  const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    try {
-      setLoading(true);
-      await logIn(data.get("email"), data.get("password"));
-      history.push("/");
-    } catch (err) {
-      setLoading(false);
-      alert(err.message);
-    }
+    logIn(data.get("email"), data.get("password"));
   };
 
   return (

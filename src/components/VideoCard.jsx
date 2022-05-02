@@ -9,7 +9,7 @@ import Typography from "@mui/material/Typography";
 import { Link } from "react-router-dom/cjs/react-router-dom.min";
 function VideoCard({ video }) {
   return (
-    <Grid item xs={12} sm={6} md={6} lg={4} key={video.id}>
+    <Grid item xs={12} sm={6} md={6} lg={4}>
       <Card sx={{ height: "100%", display: "flex", flexDirection: "column" }}>
         <div>
           <CardMedia
