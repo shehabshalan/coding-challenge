@@ -9,7 +9,7 @@ import {
 } from "firebase/firestore";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { db, storage } from "../firebase-config";
-import durationFormat from "../utils/utils";
+import durationFormat from "../utils/durationFormat";
 const DataContext = createContext({});
 
 export const DataProvider = ({ children }) => {
@@ -30,7 +30,7 @@ export const DataProvider = ({ children }) => {
   const getVideos = async () => {
     const data = await getDocs(videosCollectionRef);
     const allVideos = data.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
-    setVideos(allVideos);
+    setVideos(allVideos.reverse());
   };
 
   useEffect(() => {
