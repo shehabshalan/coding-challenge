@@ -1,5 +1,5 @@
 # Browse Videos
-A simple video browser with ability to upload videos.
+A simple UI to browse videos with authentication.
 ## Tech Stack:
 - React.js
 - Firebase (Authentication + data persistence)
