@@ -3,13 +3,16 @@ import React, { useState } from "react";
 
 function AddComments({ video, setVideo }) {
   const [comment, setComment] = useState("");
+  const [disable, setDisable] = useState(true);
   const handleCommentChange = (e) => {
     setComment(e.target.value);
+    setDisable(e.target.value.length < 1);
   };
   const handleClick = (e) => {
     e.preventDefault();
     setVideo({ ...video, comments: [...video.comments, comment] });
     setComment("");
+    setDisable(true);
   };
   return (
     <div>
@@ -18,7 +21,6 @@ function AddComments({ video, setVideo }) {
       </Typography>
       <TextField
         margin="normal"
-        required
         fullWidth
         id="comment"
         value={comment}
@@ -26,7 +28,7 @@ function AddComments({ video, setVideo }) {
         name="comment"
         onChange={handleCommentChange}
       />
-      <Button variant="contained" onClick={handleClick}>
+      <Button variant="contained" onClick={handleClick} disabled={disable}>
         Add
       </Button>
     </div>
