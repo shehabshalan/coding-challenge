@@ -16,14 +16,20 @@ function VideoPage() {
     const relatedVideos = allVideos.filter((v) => {
       return v.category === video.category;
     });
+    if (relatedVideos.length > 3) {
+      return relatedVideos.slice(0, 3);
+    }
+    if (relatedVideos.length === 1) {
+      return [];
+    }
+
     return relatedVideos;
   };
 
   useEffect(() => {
     const videoById = videos.find((video) => video.id === id);
     setVideo(videoById);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [id]);
+  }, [id, video, videos]);
   return (
     <div>
       {video && (
@@ -73,7 +79,7 @@ function VideoPage() {
 
       {!video && (
         <Typography variant="h6" align="center">
-          No video found
+          Loading ...
         </Typography>
       )}
     </div>

@@ -80,14 +80,6 @@ function Header() {
                   </Typography>
                 </MenuItem>
               </Link>
-
-              <Link to="/upload">
-                <MenuItem onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center" color="black">
-                    Upload area
-                  </Typography>
-                </MenuItem>
-              </Link>
             </Menu>
           </Box>
           <Typography
@@ -105,14 +97,6 @@ function Header() {
                 sx={{ my: 2, color: "white", display: "block" }}
               >
                 Home
-              </Button>
-            </Link>
-            <Link to="/upload">
-              <Button
-                onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: "white", display: "block" }}
-              >
-                Upload area
               </Button>
             </Link>
           </Box>

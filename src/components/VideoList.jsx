@@ -28,9 +28,7 @@ function VideoList() {
           columns={12}
         >
           {videos.map((video) => (
-            <Grid item xs={12} sm={6} md={6} lg={4} key={video.id}>
-              <VideoCard video={video} />
-            </Grid>
+            <VideoCard video={video} />
           ))}
         </Grid>
       </Box>

@@ -1,6 +1,5 @@
-import * as React from "react";
+import React, { useState } from "react";
 import Avatar from "@mui/material/Avatar";
-import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
 import Link from "@mui/material/Link";
@@ -10,18 +9,23 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { useUserAuth } from "../context/UserAuthContext";
 import { useHistory } from "react-router-dom";
+import LoadingButton from "@mui/lab/LoadingButton";
 
-export default function Login() {
+function Login() {
+  const [loading, setLoading] = useState(false);
+
   const { logIn } = useUserAuth();
   const history = useHistory();
   const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     try {
+      setLoading(true);
       await logIn(data.get("email"), data.get("password"));
       history.push("/");
     } catch (err) {
-      console.log(err.message);
+      setLoading(false);
+      alert(err.message);
     }
   };
 
@@ -63,14 +67,15 @@ export default function Login() {
             id="password"
             autoComplete="current-password"
           />
-          <Button
+          <LoadingButton
             type="submit"
             fullWidth
+            loading={loading}
             variant="contained"
             sx={{ mt: 3, mb: 2 }}
           >
             Login
-          </Button>
+          </LoadingButton>
 
           <Link
             href="/register"
@@ -84,3 +89,4 @@ export default function Login() {
     </Container>
   );
 }
+export default Login;

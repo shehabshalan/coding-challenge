@@ -23,7 +23,6 @@ export function UserAuthContextProvider({ children }) {
   }
 
   onAuthStateChanged(auth, (currentuser) => {
-    // console.log("Auth", currentuser);
     setUser(currentuser);
   });
 
